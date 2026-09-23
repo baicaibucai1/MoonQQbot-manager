@@ -2934,13 +2934,12 @@ async function createModel() {
 }
 
 // ---------- 主题（亮/暗 + 主题色，localStorage 持久化） ----------
-const DEFAULT_ACCENT = '#f5b301'; // 默认主题色（黄）
+const DEFAULT_ACCENT = '#4f46e5'; // 默认主题色（靛蓝）
 
 // 设置主题色：覆盖 CSS 变量 --accent（--accent-strong/soft 等通过 color-mix 自动联动）
 function applyAccent(hex) {
   const color = /^#([0-9a-fA-F]{6})$/.test(hex || '') ? hex : DEFAULT_ACCENT;
   document.documentElement.style.setProperty('--accent', color);
-  document.documentElement.style.setProperty('--warn', color);
   localStorage.setItem('qqbot-accent', color);
   const swatches = document.querySelectorAll('.swatch');
   swatches.forEach(s => s.classList.toggle('cur', s.dataset.c === color));
@@ -2963,7 +2962,7 @@ function toggleTheme() {
 }
 
 // 预设主题色板
-const ACCENT_PRESETS = [DEFAULT_ACCENT, '#3b82f6', '#22c55e', '#8b5cf6', '#ef4444', '#06b6d4', '#f97316', '#ec4899'];
+const ACCENT_PRESETS = [DEFAULT_ACCENT, '#3b82f6', '#0ea5e9', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#64748b'];
 
 function renderAppearance() {
   const cur = document.documentElement.style.getPropertyValue('--accent') || localStorage.getItem('qqbot-accent') || DEFAULT_ACCENT;
@@ -3018,9 +3017,9 @@ const CARD_EFFECTS = [
   { id: 'none', name: '◽ 纯净' },
 ];
 function cardEffectId() {
-  let e = 'wave';
-  try { e = localStorage.getItem('qqbot-card-effect') || 'wave'; } catch {}
-  return CARD_EFFECTS.some(x => x.id === e) ? e : 'wave';
+  let e = 'none';
+  try { e = localStorage.getItem('qqbot-card-effect') || 'none'; } catch {}
+  return CARD_EFFECTS.some(x => x.id === e) ? e : 'none';
 }
 function pickCardEffect(id) {
   try { localStorage.setItem('qqbot-card-effect', id); } catch {}
